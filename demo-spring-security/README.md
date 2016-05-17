@@ -14,10 +14,10 @@ how to use:
 
 3. try to login by username and password. Both them are the same, for example: 
 
-	username: user
-	password: user
+		username: user
+		password: user
 	
-login success and towards /index.htm?value=config.
+	login success and towards /index.htm?value=config.
 
 4. then you can get access to /web1.htm.
 

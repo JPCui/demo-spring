@@ -10,7 +10,7 @@
 
 	<h1>Login</h1>
 
-	<form action="login_processing.htm" method="post">
+	<form action="login" method="post">
 
 		<input name="username"> <br>
 		<input name="password"> <br>

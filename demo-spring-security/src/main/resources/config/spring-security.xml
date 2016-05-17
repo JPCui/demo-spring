@@ -21,11 +21,12 @@
 
 	<global-method-security pre-post-annotations="enabled" />
 
+	<!-- 配置不需要security拦截的url pattern -->
 	<http security="none" pattern="/resources/**" />
 	<http security="none" pattern="/**/*.jsp" />
 
 	<http auto-config="true">
-		<!-- 禁止跨域 -->
+		<!-- 禁止跨域，开启该配置将报错，需要添加csrf相关配置 -->
 		<csrf disabled="true" />
 
 		<session-management>
@@ -36,34 +37,32 @@
 			logout-success-url="/login" />
 
 		<form-login login-page="/login.htm" default-target-url="/index.htm?value=config"
-			always-use-default-target="true" authentication-failure-url="/login.htm?value=error" />
+			authentication-failure-url="/login.htm?value=error" />
+		<logout logout-success-url="/login.htm"></logout>
 
 		<intercept-url pattern="/web1*" access="hasRole('USER')" />
 		<intercept-url pattern="/**" access="permitAll" />
 		<!-- <intercept-url pattern="/web2.*" access="hasRole('ROLE_ADMIN')" /> -->
 
-		<logout></logout>
 		<session-management invalid-session-url="/forward.htm?value=timeout">
 			<concurrency-control max-sessions="1"
 				error-if-maximum-exceeded="true" />
 		</session-management>
 
+		<!-- enable this by setting <authentication-manager#erase-credentials="false"> -->
 		<remember-me key="webmvc#FD637E6D9C0F1A5A67082AF56CE32485"
 			remember-me-parameter="remember-me" />
 
 	</http>
 
-	<!-- <beans:bean id="userService" class="org.springframework.security.demo.service.UserService"></beans:bean> -->
+	<!-- 
+	 -->
+	<beans:bean id="userService" class="org.springframework.security.demo.service.UserService"></beans:bean>
 
 	<!-- 认证管理器 -->
 	<authentication-manager>
-		<security:authentication-provider>
-			<user-service>
-				<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-				<user name="bob" password="bobspassword" authorities="ROLE_USER" />
-			</user-service>
+		<security:authentication-provider user-service-ref='userService'>
 		</security:authentication-provider>
-		<!-- <authentication-provider user-service-ref="userService"> </authentication-provider> -->
 	</authentication-manager>
 
 

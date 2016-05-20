@@ -335,5 +335,6 @@
 	</dependencies>
 	<modules>
 		<module>demo-spring-security</module>
+		<module>demo-spring-security-acl</module>
 	</modules>
 </project>
